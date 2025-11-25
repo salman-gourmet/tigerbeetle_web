@@ -6,8 +6,8 @@ import { serializeBigInt } from '@/lib/utils';
 
 // We use { params } to get the dynamic ID from the URL
 export async function GET(
-    request: NextRequest,
-    { params }: { params: { id: string } }
+    request: Request,
+    props: { params: Promise<{ id: string }> } // ✅ Type as a Promise
 ) {
     try {
         await connectMongo();
@@ -15,8 +15,8 @@ export async function GET(
         // 1. Find Mongo User
         // We must await params in Next.js 15+, but in 14 it's direct. 
         // Safest access for now:
-        const { id } = await params;
-        console.log("params", params)
+        const params = await props.params; // ✅ Await the promise
+        const id = params.id;
 
         const user = await User.findById(id);
         if (!user) {
