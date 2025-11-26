@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/tb_local_demo';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://salmanplay788:salman123@gourmetpakistan.p9yw814.mongodb.net/tigerbeetle_web?retryWrites=true&w=majority&appName=gourmetpakistan';
 
 if (!MONGO_URI) {
     throw new Error('Please define the MONGO_URI inside .env.local');
