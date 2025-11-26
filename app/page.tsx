@@ -120,6 +120,15 @@ export default function Dashboard() {
     fetchUsers();
   }, []);
 
+
+  const isSystemDebit = (id: string) => {
+    // start with 999
+    if (id === "999") {
+      return "System"
+    }
+    return id
+  }
+
   // --- Components ---
 
   return (
@@ -267,7 +276,7 @@ export default function Dashboard() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-4">
-                  {users.map((user) => (
+                  {users.length > 0 ? users.map((user) => (
                     <div
                       key={user._id}
                       onClick={() => fetchUserDetail(user._id)}
@@ -291,7 +300,11 @@ export default function Dashboard() {
 
 
                     </div>
-                  ))}
+                  )) :
+                    <div className="p-12 text-center text-slate-500 bg-white rounded-xl border border-dashed border-slate-300 min-h-[430px]">
+                      Users not found...
+                    </div>
+                  }
                 </div>
               )}
             </div>
@@ -358,7 +371,7 @@ export default function Dashboard() {
                                         {isOutgoing ? "Sent" : "Received"}
                                       </div>
                                       <div className="font-mono text-[10px] text-slate-400 -mt-0.5">
-                                        Account:{isOutgoing ? tx.credit_account_id.toString() : tx.debit_account_id.toString()}
+                                        Account:{isOutgoing ? tx.credit_account_id.toString() : isSystemDebit(tx.debit_account_id.toString())}
                                       </div>
                                     </div>
 
