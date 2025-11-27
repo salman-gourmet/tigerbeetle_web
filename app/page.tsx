@@ -264,10 +264,10 @@ export default function Dashboard() {
           </div>
           {/* RIGHT COLUMN: LIST */}
           {/* --- ROW 2: SPLIT VIEW (One Row: 60% Left / 40% Right) --- */}
-          <div className="flex gap-8 items-start">
+          <div className="flex-col md:flex md:flex-row gap-8 items-start">
 
             {/* LEFT COLUMN: User Listing (60% Width) */}
-            <div className="w-[33%]">
+            <div className="w-full md:w-[35%] lg:w-[33%]">
               <h2 className="text-xl font-bold mb-4 text-slate-800">User Directory</h2>
 
               {loading ? (
@@ -275,7 +275,7 @@ export default function Dashboard() {
                   Loading users...
                 </div>
               ) : (
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-4 h-[120px] md:h-[425px] overflow-y-scroll">
                   {users.length > 0 ? users.map((user) => (
                     <div
                       key={user._id}
@@ -310,7 +310,7 @@ export default function Dashboard() {
             </div>
 
             {/* RIGHT COLUMN: Details Panel (40% Width & Sticky) */}
-            <div className="w-[68%] sticky top-6">
+            <div className="w-full md:w-[65%] lg:w-[68%] sticky top-6 mt-6 md:mt-0">
               <h2 className="text-xl font-bold mb-4 text-slate-800">Account Details</h2>
 
               <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden min-h-[400px] relative">
@@ -344,7 +344,7 @@ export default function Dashboard() {
                         <p className="text-sm text-slate-400 italic text-center py-8">No transactions found.</p>
                       ) : (
                         /* 1. CHANGED: grid-cols-1 on small screens, grid-cols-3 on larger screens */
-                        <ul className="grid grid-cols-1 md:grid-cols-3 gap-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                           {selectedUserDetail.history.map((tx: any) => {
                             const isOutgoing = selectedUserDetail?.user?.tb_account_id === tx?.debit_account_id.toString();
                             return (
@@ -400,7 +400,7 @@ export default function Dashboard() {
                       </div>
                       <h3 className="text-lg font-bold text-slate-800">No User Selected</h3>
                       <p className="text-sm text-slate-500 mt-2 max-w-[200px]">
-                        Please select a user from the list on the left to view their live balance and transaction history.
+                        Please select a user from the list on the left/above to view their live balance and transaction history.
                       </p>
                       {selectedUserId && !selectedUserDetail && (
                         <div className="mt-4 flex items-center gap-2 text-indigo-600 font-medium">
